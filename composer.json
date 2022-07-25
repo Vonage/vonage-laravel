@@ -29,7 +29,7 @@
                 "Vonage\\Laravel\\VonageServiceProvider"
             ],
             "aliases": {
-                "Vonage": "Vonage\\Laravel\\Facade"
+                "Vonage": "Vonage\\Laravel\\Facade\\Vonage"
             }
         }
     },
