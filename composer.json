@@ -1,0 +1,20 @@
+{
+    "name": "vonage/vonage-laravel",
+    "description": "Service provider for Laravel for all Vonage PHP SDK",
+    "type": "package",
+    "require": {
+        "vonage/client": "3"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vonage\\VonageLaravel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "James Seconde",
+            "email": "jim.seconde@googlemail.com"
+        }
+    ]
+}
