@@ -3,7 +3,9 @@
     "description": "Service provider for Laravel for all Vonage PHP SDK",
     "type": "package",
     "require": {
-        "vonage/client": "3"
+        "vonage/client": "^3.0",
+        "php": "^7.4|^8.0|^8.1",
+        "illuminate/support": "^5.2|^6.0|^7.0|^8.0"
     },
     "license": "MIT",
     "autoload": {
