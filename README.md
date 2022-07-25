@@ -1,2 +1,139 @@
-# vonage-laravel
-Laravel Service Provider for integrating Vonage APIs
+![The Vonage logo](./vonage_logo.png)
+![The Laravel logo](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
+
+<h2 align="center">
+    Vonage Package for Laravel
+</h2>
+
+<p align="center">
+    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/v/stable?format=flat-square" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/v/unstable?format=flat-square" alt="Latest Unstable Version"></a>    
+    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/license?format=flat-square" alt="License"></a>
+    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/downloads" alt="Total Downloads"></a>
+</p>
+
+### Introduction
+
+This is a Laravel Service Provider for integrating the [Vonage PHP Client Library]().
+
+### Requirements
+
+This Package is for use with Laravel versions 6.0 and upwards.
+
+### Installation
+
+Using [Composer](), run the terminal command:
+
+```bash
+composer require vonage/laravel
+```
+
+### Dealing with Guzzle Client issues
+By default, this package uses vonage/client, which includes a Guzzle adapter for
+accessing the API. Some other libraries supply their own Guzzle adapter, leading 
+to composer not being able to resolve a list of dependencies. You may get an 
+error when adding `vonage/laravel` to your application because of this.
+
+The Vonage client allows you to override the HTTP adapter that is being used.
+This takes a bit more configuration, but this package allows you to use `vonage/client-core` to supply 
+your own HTTP adapter.
+
+To do this:
+
+Run `composer require vonage/client-core` to install the Core SDK with Composer.
+
+Install your own httplug-compatible adapter. For example, to use Symfony's HTTP Client:
+
+```bash
+composer require symfony/http-client php-http/message-factory php-http/httplug nyholm/psr7
+```
+
+`composer require vonage/laravel` to install this package
+
+In your .env file, add the following configuration:
+
+```dotenv
+VONAGE_HTTP_CLIENT="Symfony\\Component\\HttpClient\\HttplugClient"
+```
+
+You can now pull the Vonage\Client object from the Laravel Service Container, or use the 
+Facade provided by this package.
+
+### Configuration
+
+You can use `artisan vendor:publish` to copy the distribution configuration file to your app's 
+config directory:
+
+```bash
+php artisan vendor:publish
+```
+
+Then update `config/vonage.php` with your credentials. Alternatively, you can update your `.env` file 
+with the following:
+
+```dotenv
+VONAGE_KEY=my_api_key
+VONAGE_SECRET=my_secret
+```
+
+Optionally, you could also set an `application_id` and `private_key` if required:
+
+```dotenv
+VONAGE_APPLICATION_ID=my_application_id
+VONAGE_PRIVATE_KEY=./private.key
+```
+
+Private keys can either be a path to a file, like above, or the string of the key itself:
+
+```dotenv
+VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n[...]\n-----END PRIVATE KEY-----\n"
+```
+
+```dotenv
+VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
+[...]
+-----END PRIVATE KEY-----
+"
+```
+
+### Usage
+
+To use the Nexmo Client Library you can use the facade, or request the instance from the service 
+container:
+
+```php
+$text = new \Vonage\SMS\Message\SMS($toNumber, $fromNumber, 'Test SMS using Laravel');
+Vonage::sms()->send($text);
+```
+
+Or
+
+```php
+$vonage = app('Vonage\Client');
+$text = new \Vonage\SMS\Message\SMS($toNumber, $fromNumber, 'Test SMS using Laravel');
+$vonage->sms()->send($text);
+```
+
+If you're using private key authentication, you can make a voice call:
+
+```php
+$outboundCall = new \Vonage\Voice\OutboundCall(
+    new \Vonage\Voice\Endpoint\Phone('14843331234'),
+    new \Vonage\Voice\Endpoint\Phone('14843335555')
+);
+$outboundCall
+    ->setAnswerWebhook(
+        new \Vonage\Voice\Webhook('https://example.com/answer')
+    )
+    ->setEventWebhook(
+        new \Vonage\Voice\Webhook('https://example.com/event')
+    )
+;
+
+$response = Vonage::voice()->createOutboundCall($outboundCall);
+```
+
+For more information on using the Vonage client library, see 
+the [official client library repository](https://github.com/Vonage/vonage-php-sdk-core).
+
+[client-library]: https://github.com/Nexmo/nexmo-php
