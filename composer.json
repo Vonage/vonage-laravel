@@ -1,6 +1,6 @@
 {
     "name": "vonage/vonage-laravel",
-    "description": "Service provider for Laravel for all Vonage PHP SDK",
+    "description": "Service provider for Laravel for the Vonage PHP SDK",
     "type": "package",
     "require": {
         "vonage/client": "^3.0",
@@ -15,12 +15,31 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Vonage\\VonageLaravel\\": "src/"
+            "Vonage\\Laravel\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vonage\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Vonage\\Laravel\\VonageServiceProvider"
+            ],
+            "aliases": {
+                "Vonage": "Vonage\\Laravel\\Facade"
+            }
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
     },
     "authors": [
         {
             "name": "James Seconde",
+            "role": "PHP Developer Advocate",
             "email": "jim.seconde@googlemail.com"
         }
     ]
