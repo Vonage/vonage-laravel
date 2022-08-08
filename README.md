@@ -14,7 +14,7 @@
 
 ### Introduction
 
-This is a Laravel Service Provider for integrating the [Vonage PHP Client Library]().
+This is a Laravel Service Provider for integrating the [Vonage PHP Client Library](https://github.com/Vonage/vonage-php-sdk).
 
 ### Requirements
 
@@ -22,17 +22,17 @@ This Package is for use with Laravel versions 6.0 and upwards.
 
 ### Installation
 
-Using [Composer](), run the terminal command:
+Using [Composer](https://getcomposer.org/), run the terminal command:
 
 ```bash
-composer require vonage/laravel
+composer require vonage/vonage-laravel
 ```
 
 ### Dealing with Guzzle Client issues
 By default, this package uses vonage/client, which includes a Guzzle adapter for
 accessing the API. Some other libraries supply their own Guzzle adapter, leading 
 to composer not being able to resolve a list of dependencies. You may get an 
-error when adding `vonage/laravel` to your application because of this.
+error when adding `vonage/vonage-laravel` to your application because of this.
 
 The Vonage client allows you to override the HTTP adapter that is being used.
 This takes a bit more configuration, but this package allows you to use `vonage/client-core` to supply 
@@ -48,7 +48,7 @@ Install your own httplug-compatible adapter. For example, to use Symfony's HTTP 
 composer require symfony/http-client php-http/message-factory php-http/httplug nyholm/psr7
 ```
 
-`composer require vonage/laravel` to install this package
+`composer require vonage/vonage-laravel` to install this package
 
 In your .env file, add the following configuration:
 
