@@ -75,9 +75,9 @@ class VonageServiceProvider extends ServiceProvider
      */
     protected function createVonageClient(Config $config): Client
     {
-        // Check for Nexmo config file.
+        // Check for Vonage config file.
         if ( ! $this->hasVonageConfigSection()) {
-            $this->raiseRunTimeException('Missing nexmo configuration section.');
+            $this->raiseRunTimeException('Missing Vonage configuration section.');
         }
 
         // Get Client Options.
