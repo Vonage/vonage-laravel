@@ -98,7 +98,7 @@ VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
 
 ### Usage
 
-To use the Nexmo Client Library you can use the facade, or request the instance from the service 
+To use the Vonage Client Library you can use the Facade, or request the instance from the service 
 container:
 
 ```php
