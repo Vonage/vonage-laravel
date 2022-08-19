@@ -16,6 +16,8 @@ class VonageServiceProvider extends ServiceProvider
      */
     protected bool $defer = true;
 
+    protected array $config;
+
     /**
      * Bootstrap the application services.
      *
@@ -48,7 +50,7 @@ class VonageServiceProvider extends ServiceProvider
     {
         // Bind Vonage Client in Service Container.
         $this->app->singleton(Client::class, function ($app) {
-            return $this->createVonageClient($app['config']);
+            return $this->createVonageClient();
         });
     }
 
@@ -73,38 +75,40 @@ class VonageServiceProvider extends ServiceProvider
      *
      * @throws \RuntimeException
      */
-    protected function createVonageClient(Config $config): Client
+    protected function createVonageClient(): Client
     {
+        $this->config = config('vonage');
+
         // Check for Vonage config file.
-        if ( ! $this->hasVonageConfigSection()) {
+        if (!$this->config) {
             $this->raiseRunTimeException('Missing Vonage configuration section.');
         }
 
         // Get Client Options.
-        $options = array_diff_key($config->get('vonage'),
+        $options = array_diff_key($this->config,
             ['private_key', 'application_id', 'api_key', 'api_secret', 'shared_secret', 'app']);
 
         // Do we have a private key?
         $privateKeyCredentials = null;
         if ($this->vonageConfigHas('private_key')) {
             if ($this->vonageConfigHasNo('application_id')) {
-                $this->raiseRunTimeException('You must provide nexmo.application_id when using a private key');
+                $this->raiseRunTimeException('You must provide vonage.application_id when using a private key');
             }
 
-            $privateKeyCredentials = $this->createPrivateKeyCredentials($config->get('nexmo.private_key'),
-                $config->get('vonage.application_id'));
+            $privateKeyCredentials = $this->createPrivateKeyCredentials($this->config['private_key'],
+                $this->config['application_id']);
         }
 
         $basicCredentials = null;
         if ($this->vonageConfigHas('api_secret')) {
-            $basicCredentials = $this->createBasicCredentials($config->get('vonage.api_key'),
-                $config->get('vonage.api_secret'));
+            $basicCredentials = $this->createBasicCredentials($this->config['api_key'],
+                $this->config['application_id']);
         }
 
         $signatureCredentials = null;
         if ($this->vonageConfigHas('signature_secret')) {
-            $signatureCredentials = $this->createSignatureCredentials($config->get('vonage.api_key'),
-                $config->get('vonage.signature_secret'));
+            $signatureCredentials = $this->createSignatureCredentials($this->config['api_key'],
+                $this->config['signature_secret']);
         }
 
         // We can have basic only, signature only, private key only or
@@ -147,25 +151,14 @@ class VonageServiceProvider extends ServiceProvider
 
         $httpClient = null;
         if ($this->vonageConfigHas('http_client')) {
-            $httpClient = $this->app->make($config->get(('vonage.http_client')));
+            $httpClient = $this->app->make($this->config['http_client']);
         }
 
         return new Client($credentials, $options, $httpClient);
     }
 
     /**
-     * Checks if has global Vonage configuration section.
-     *
-     * @return bool
-     */
-    protected function hasVonageConfigSection(): bool
-    {
-        return $this->app->make(Config::class)
-                         ->has('vonage');
-    }
-
-    /**
-     * Checks if Nexmo config does not
+     * Checks if Vonage config does not
      * have a value for the given key.
      *
      * @param string $key
@@ -178,7 +171,7 @@ class VonageServiceProvider extends ServiceProvider
     }
 
     /**
-     * Checks if Nexmo config has value for the
+     * Checks if Vonage config has value for the
      * given key.
      *
      * @param string $key
@@ -187,18 +180,11 @@ class VonageServiceProvider extends ServiceProvider
      */
     protected function vonageConfigHas($key): bool
     {
-        /** @var Config $config */
-        $config = $this->app->make(Config::class);
-
-        // Check for Nexmo config file.
-        if ( ! $config->has('vonage')) {
+        if (!array_key_exists($key, $this->config)) {
             return false;
         }
 
-        return
-            $config->has('vonage.' . $key) &&
-            ! is_null($config->get('vonage.' . $key)) &&
-            ! empty($config->get('vonage.' . $key));
+        return ($this->config[$key]);
     }
 
     /**
