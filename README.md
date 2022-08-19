@@ -1,16 +1,11 @@
 ![The Vonage logo](./vonage_logo.png)
 ![The Laravel logo](https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg)
 
-<h2 align="center">
-    Vonage Package for Laravel
-</h2>
-
-<p align="center">
-    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/v/stable?format=flat-square" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/v/unstable?format=flat-square" alt="Latest Unstable Version"></a>    
-    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/license?format=flat-square" alt="License"></a>
-    <a href="https://packagist.org/packages/nexmo/laravel"><img src="https://poser.pugx.org/vonage/laravel/downloads" alt="Total Downloads"></a>
-</p>
+# Vonage Package for Laravel
+[![Latest Stable Version](http://poser.pugx.org/vonage/vonage-laravel/v)](https://packagist.org/packages/vonage/vonage-laravel)
+[![Total Downloads](http://poser.pugx.org/vonage/vonage-laravel/downloads)](https://packagist.org/packages/vonage/vonage-laravel)
+[![License](http://poser.pugx.org/vonage/vonage-laravel/license)](https://packagist.org/packages/vonage/vonage-laravel)
+[![PHP Version Require](http://poser.pugx.org/vonage/vonage-laravel/require/php)](https://packagist.org/packages/vonage/vonage-laravel)
 
 ### Introduction
 
