@@ -102,7 +102,7 @@ class VonageServiceProvider extends ServiceProvider
         $basicCredentials = null;
         if ($this->vonageConfigHas('api_secret')) {
             $basicCredentials = $this->createBasicCredentials($this->config['api_key'],
-                $this->config['application_id']);
+                $this->config['api_secret']);
         }
 
         $signatureCredentials = null;
