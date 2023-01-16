@@ -13,7 +13,8 @@ This is a Laravel Service Provider for integrating the [Vonage PHP Client Librar
 
 ### Requirements
 
-This Package is for use with Laravel versions 6.0 and upwards.
+This Package is for use with Laravel versions 9and upwards due to PHP Version restrictions. You will need to be running
+PHP8.0 and upwards - for older compatibility you will need to look at previous versions.
 
 ### Installation
 
