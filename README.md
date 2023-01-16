@@ -60,7 +60,7 @@ You can use `artisan vendor:publish` to copy the distribution configuration file
 config directory:
 
 ```bash
-php artisan vendor:publish
+php artisan vendor:publish --provider="Vonage\Laravel\VonageServiceProvider"
 ```
 
 Then update `config/vonage.php` with your credentials. Alternatively, you can update your `.env` file 
