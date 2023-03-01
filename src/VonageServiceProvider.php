@@ -184,7 +184,7 @@ class VonageServiceProvider extends ServiceProvider
             return false;
         }
 
-        return ($this->config[$key]);
+        return isset($this->config[$key]);
     }
 
     /**
