@@ -2,27 +2,29 @@
 
 namespace Vonage\Laravel\Tests;
 
-use Vonage\Client;
+use Illuminate\Foundation\Application;
 
 class TestNoVonageConfiguration extends AbstractTestCase
 {
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('vonage.api_key', 'my_api_key');
     }
 
     /**
-     * Test that when we do not supply Nexmo configuration
+     * Test that when we do not supply Vonage configuration
      * a Runtime exception is generated under the Vonage namespace.
      *
      * @dataProvider classNameProvider
+     *
+     * @param $className
      *
      * @return void
      */

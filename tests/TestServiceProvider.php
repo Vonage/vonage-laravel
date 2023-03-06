@@ -1,16 +1,15 @@
 <?php
 
-namespace Nexmo\Laravel\Tests;
+namespace Vonage\Laravel\Tests;
 
-use Vonage\Client;
-use Vonage\Laravel\Tests\AbstractTestCase;
+use Illuminate\Foundation\Application;
 
 class TestServiceProvider extends AbstractTestCase
 {
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return void
      */
@@ -25,6 +24,8 @@ class TestServiceProvider extends AbstractTestCase
      * from container binding.
      *
      * @dataProvider classNameProvider
+     *
+     * @param $className
      *
      * @return void
      */

@@ -2,6 +2,7 @@
 
 namespace Vonage\Laravel\Tests;
 
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
 use Vonage\Laravel\VonageServiceProvider;
 use Vonage\Client;
@@ -11,11 +12,11 @@ abstract class AbstractTestCase extends TestCase
     /**
      * Get package providers.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return array
      */
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             VonageServiceProvider::class,
@@ -25,11 +26,11 @@ abstract class AbstractTestCase extends TestCase
     /**
      * Get package aliases.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return array
      */
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
             'Vonage' => \Vonage\Laravel\Facade\Vonage::class,
@@ -41,11 +42,12 @@ abstract class AbstractTestCase extends TestCase
      *
      * @param string $class
      * @param string $property
-     * @param mixed  $object
+     * @param mixed $object
      *
      * @return mixed
+     * @throws \ReflectionException
      */
-    public function getClassProperty($class, $property, $object)
+    public function getClassProperty(string $class, string $property, mixed $object): mixed
     {
         $reflectionClass = new \ReflectionClass($class);
         $refProperty = $reflectionClass->getProperty($property);

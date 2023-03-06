@@ -2,10 +2,13 @@
 
 namespace Vonage\Laravel;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Vonage\Client;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Config\Repository as Config;
+use Vonage\Client\Credentials\Basic;
+use Vonage\Client\Credentials\Keypair;
+use Vonage\Client\Credentials\SignatureSecret;
 
 class VonageServiceProvider extends ServiceProvider
 {
@@ -23,7 +26,7 @@ class VonageServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Config file path.
         $dist = __DIR__ . '/../config/vonage.php';
@@ -46,7 +49,7 @@ class VonageServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         // Bind Vonage Client in Service Container.
         $this->app->singleton(Client::class, function ($app) {
@@ -68,12 +71,9 @@ class VonageServiceProvider extends ServiceProvider
 
     /**
      * Create a new Vonage Client.
-     *
-     * @param Config $config
-     *
      * @return Client
      *
-     * @throws \RuntimeException
+     * @throws BindingResolutionException
      */
     protected function createVonageClient(): Client
     {
@@ -157,79 +157,39 @@ class VonageServiceProvider extends ServiceProvider
         return new Client($credentials, $options, $httpClient);
     }
 
-    /**
-     * Checks if Vonage config does not
-     * have a value for the given key.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    protected function vonageConfigHasNo($key): bool
+    protected function vonageConfigHas(string $key): bool
+    {
+        if (!array_key_exists($key, $this->config) || empty($this->config[$key])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function vonageConfigHasNo(string $key): bool
     {
         return ! $this->vonageConfigHas($key);
     }
 
-    /**
-     * Checks if Vonage config has value for the
-     * given key.
-     *
-     * @param string $key
-     *
-     * @return bool
-     */
-    protected function vonageConfigHas($key): bool
+    protected function createBasicCredentials(string $key, string $secret): Basic
     {
-        if (!array_key_exists($key, $this->config)) {
-            return false;
-        }
-
-        return isset($this->config[$key]);
+        return new Basic($key, $secret);
     }
 
-    /**
-     * Create a Basic credentials for client.
-     *
-     * @param string $key
-     * @param string $secret
-     *
-     * @return Client\Credentials\Basic
-     */
-    protected function createBasicCredentials($key, $secret): Client\Credentials\Basic
+    protected function createSignatureCredentials(string $key, string $signatureSecret): SignatureSecret
     {
-        return new Client\Credentials\Basic($key, $secret);
+        return new SignatureSecret($key, $signatureSecret);
     }
 
-    /**
-     * Create SignatureSecret credentials for client.
-     *
-     * @param string $key
-     * @param string $signatureSecret
-     *
-     * @return Client\Credentials\SignatureSecret
-     */
-    protected function createSignatureCredentials($key, $signatureSecret): Client\Credentials\SignatureSecret
+    protected function createPrivateKeyCredentials(string $key, string $applicationId): Keypair
     {
-        return new Client\Credentials\SignatureSecret($key, $signatureSecret);
-    }
-
-    /**
-     * Create Keypair credentials for client.
-     *
-     * @param string $key
-     * @param string $applicationId
-     *
-     * @return Client\Credentials\Keypair
-     */
-    protected function createPrivateKeyCredentials($key, $applicationId): Client\Credentials\Keypair
-    {
-        return new Client\Credentials\Keypair($this->loadPrivateKey($key), $applicationId);
+        return new Keypair($this->loadPrivateKey($key), $applicationId);
     }
 
     /**
      * Load private key contents from root directory
      */
-    protected function loadPrivateKey($key)
+    protected function loadPrivateKey(string $key): bool|string
     {
         if (app()->runningUnitTests()) {
             return '===FAKE-KEY===';
@@ -248,14 +208,7 @@ class VonageServiceProvider extends ServiceProvider
         return file_get_contents($key);
     }
 
-    /**
-     * Raises Runtime exception.
-     *
-     * @param string $message
-     *
-     * @throws \RuntimeException
-     */
-    protected function raiseRunTimeException($message)
+    protected function raiseRunTimeException(string $message): void
     {
         throw new \RuntimeException($message);
     }

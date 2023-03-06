@@ -129,7 +129,7 @@ $outboundCall
 $response = Vonage::voice()->createOutboundCall($outboundCall);
 ```
 
-For more information on using the Vonage client library, see 
+For more information on using the Vonage Client library, see 
 the [official client library repository](https://github.com/Vonage/vonage-php-sdk-core).
 
-[client-library]: https://github.com/Nexmo/nexmo-php
+[client-library]: https://github.com/Vonage/vonage-php
