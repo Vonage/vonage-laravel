@@ -2,6 +2,7 @@
 
 namespace Vonage\Laravel\Tests;
 
+use Illuminate\Foundation\Application;
 use Vonage\Client;
 
 class TestClientPrivateKeySignatureCredentials extends AbstractTestCase
@@ -9,11 +10,11 @@ class TestClientPrivateKeySignatureCredentials extends AbstractTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('vonage.private_key', '/path/to/key');
         $app['config']->set('vonage.application_id', 'application-id-123');
@@ -22,10 +23,12 @@ class TestClientPrivateKeySignatureCredentials extends AbstractTestCase
     }
 
     /**
-     * Test that our Nexmo client is created with
+     * Test that our Vonage client is created with
      * a container with private key + signature credentials
      *
      * @dataProvider classNameProvider
+     *
+     * @param $className
      *
      * @return void
      */

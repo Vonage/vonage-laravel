@@ -2,6 +2,7 @@
 
 namespace Vonage\Laravel\Tests;
 
+use Illuminate\Foundation\Application;
 use Vonage\Client;
 
 class TestClientBasicAPICredentials extends AbstractTestCase
@@ -9,18 +10,18 @@ class TestClientBasicAPICredentials extends AbstractTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application $app
+     * @param  Application $app
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function defineEnvironment($app): void
     {
         $app['config']->set('vonage.api_key', 'my_api_key');
         $app['config']->set('vonage.api_secret', 'my_secret');
     }
 
     /**
-     * Test that our Nexmo client is created with
+     * Test that our Vonage client is created with
      * the Basic API credentials.
      *
      * @return void
