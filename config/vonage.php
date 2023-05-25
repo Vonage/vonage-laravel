@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | API Credentials
     |--------------------------------------------------------------------------
@@ -12,10 +12,10 @@ return [
     |
     */
 
-    'api_key'    => function_exists('env') ? env('VONAGE_KEY', '') : '',
-    'api_secret' => function_exists('env') ? env('VONAGE_SECRET', '') : '',
+  'api_key'    => env('VONAGE_KEY'),
+  'api_secret' => env('VONAGE_SECRET'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Signature Secret
     |--------------------------------------------------------------------------
@@ -26,9 +26,9 @@ return [
     |
     */
 
-    'signature_secret' => function_exists('env') ? env('VONAGE_SIGNATURE_SECRET', '') : '',
+  'signature_secret' => env('VONAGE_SIGNATURE_SECRET'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Private Key
     |--------------------------------------------------------------------------
@@ -39,10 +39,10 @@ return [
     |
     */
 
-    'private_key' => function_exists('env') ? env('VONAGE_PRIVATE_KEY', '') : '',
-    'application_id' => function_exists('env') ? env('VONAGE_APPLICATION_ID', '') : '',
+  'private_key' => env('VONAGE_PRIVATE_KEY'),
+  'application_id' => env('VONAGE_APPLICATION_ID'),
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Application Identifiers
     |--------------------------------------------------------------------------
@@ -52,10 +52,12 @@ return [
     |
     */
 
-    'app' => ['name' => function_exists('env') ? env('VONAGE_APP_NAME', 'VonageLaravel') : 'VonageLaravel',
-              'version' => function_exists('env') ? env('VONAGE_APP_VERSION', '0.0.1') : '0.0.1'],
+  'app' => [
+    'name' => env('VONAGE_APP_NAME', 'VonageLaravel'),
+    'version' => env('VONAGE_APP_VERSION', '0.0.1')
+  ],
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Client Override
     |--------------------------------------------------------------------------
@@ -65,5 +67,5 @@ return [
     |
     */
 
-    'http_client' => function_exists('env') ? env('VONAGE_HTTP_CLIENT', '') : '',
+  'http_client' => env('VONAGE_HTTP_CLIENT'),
 ];
