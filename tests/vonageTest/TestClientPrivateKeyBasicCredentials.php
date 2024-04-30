@@ -1,9 +1,10 @@
 <?php
 
-namespace Vonage\Laravel\Tests;
+namespace Vonage\Laravel\Tests\vonageTest;
 
 use Illuminate\Foundation\Application;
 use Vonage\Client;
+use Vonage\Laravel\Tests\AbstractTestCase;
 
 class TestClientPrivateKeyBasicCredentials extends AbstractTestCase
 {
