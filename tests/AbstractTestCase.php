@@ -59,7 +59,7 @@ abstract class AbstractTestCase extends TestCase
     /**
      * Returns a list of classes we should attempt to create
      */
-    public function classNameProvider(): array
+    public static function classNameProvider(): array
     {
         return [
             [Client::class],
