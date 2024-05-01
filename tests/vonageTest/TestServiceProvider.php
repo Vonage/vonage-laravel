@@ -1,8 +1,9 @@
 <?php
 
-namespace Vonage\Laravel\Tests;
+namespace Vonage\Laravel\Tests\vonageTest;
 
 use Illuminate\Foundation\Application;
+use Vonage\Laravel\Tests\AbstractTestCase;
 
 class TestServiceProvider extends AbstractTestCase
 {
