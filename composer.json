@@ -5,12 +5,12 @@
     "require": {
         "vonage/client": "^4.0",
         "php": "^8.0|^8.1|^8.2",
-        "illuminate/support": "^9.0|^10.0|^11.0"
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "phpunit/phpunit": "^5.3|~6.0|~8.0|~9.0|^10.5|^11.0",
-        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^9.0"
+        "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^9.0|^10.0"
     },
     "license": "MIT",
     "autoload": {
