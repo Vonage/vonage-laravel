@@ -3,6 +3,7 @@
 namespace Vonage\Laravel\Tests\vonageTest;
 
 use Illuminate\Foundation\Application;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Vonage\Laravel\Tests\AbstractTestCase;
 
 class TestServiceProvider extends AbstractTestCase
@@ -24,12 +25,11 @@ class TestServiceProvider extends AbstractTestCase
      * Test that we can create the Vonage client
      * from container binding.
      *
-     * @dataProvider classNameProvider
-     *
      * @param $className
      *
      * @return void
      */
+    #[DataProvider('classNameProvider')]
     public function testClientResolutionFromContainer($className): void
     {
         $client = app($className);

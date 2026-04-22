@@ -3,6 +3,7 @@
 namespace Vonage\Laravel\Tests\vonageTest;
 
 use Illuminate\Foundation\Application;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Vonage\Laravel\Tests\AbstractTestCase;
 
 class TestNoVonageConfiguration extends AbstractTestCase
@@ -23,12 +24,11 @@ class TestNoVonageConfiguration extends AbstractTestCase
      * Test that when we do not supply Vonage configuration
      * a Runtime exception is generated under the Vonage namespace.
      *
-     * @dataProvider classNameProvider
-     *
      * @param $className
      *
      * @return void
      */
+    #[DataProvider('classNameProvider')]
     public function testWhenNoConfigurationIsGivenExceptionIsRaised($className): void
     {
         $this->expectException(\RuntimeException::class);
