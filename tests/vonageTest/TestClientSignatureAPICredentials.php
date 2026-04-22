@@ -3,6 +3,7 @@
 namespace Vonage\Laravel\Tests\vonageTest;
 
 use Illuminate\Foundation\Application;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Vonage\Client;
 use Vonage\Laravel\Tests\AbstractTestCase;
 
@@ -25,12 +26,11 @@ class TestClientSignatureAPICredentials extends AbstractTestCase
      * Test that our Vonage client is created with
      * the signature credentials
      *
-     * @dataProvider classNameProvider
-     *
      * @param $className
      *
      * @return void
      */
+    #[DataProvider('classNameProvider')]
     public function testClientCreatedWithSignatureAPICredentials($className): void
     {
         $client = app($className);
