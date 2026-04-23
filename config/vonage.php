@@ -66,4 +66,16 @@ return [
     */
 
     'http_client' => function_exists('env') ? env('VONAGE_HTTP_CLIENT', '') : '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Url Override
+    |--------------------------------------------------------------------------
+    |
+    | For testing purposes you may want to change the URL that vonage/client
+    | makes requests to from api.vonage.com to something else
+    |
+    */
+
+    'base_api_url' => function_exists('env') ? env('VONAGE_BASE_API_URL') : null,
 ];

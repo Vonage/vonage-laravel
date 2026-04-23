@@ -92,6 +92,14 @@ VONAGE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
 "
 ```
 
+#### Sandbox mode
+
+You can enable sandbox mode by specifying API url in `.env`
+
+```dotenv
+VONAGE_BASE_API_URL=https://messages-sandbox.nexmo.com
+```
+
 ### Usage
 
 To use the Vonage Client Library you can use the Facade, or request the instance from the service 
